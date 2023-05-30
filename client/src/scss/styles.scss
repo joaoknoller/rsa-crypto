@@ -1,2 +1,10 @@
 // Import all of Bootstrap's CSS
 @import "bootstrap/scss/bootstrap";
+
+.wrap {
+    row-gap: 1rem;
+}
+
+#resultado {
+    height: 90vh;
+}
