@@ -1,5 +1,5 @@
 export function primosAte(numero) {
-    if (numero % 2 === 0) numero--;
+    if (numero % 2 === 0) numero = numero - 1;
     const numeros = new Array(((numero + 1) / 2) - 1).fill(1);
     let p = 3;
     let t;
@@ -24,5 +24,3 @@ export function primosAte(numero) {
     primos.unshift(2);
     return primos;
 }
-
-// console.log(primosAte(100));

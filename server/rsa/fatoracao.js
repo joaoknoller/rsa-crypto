@@ -32,14 +32,6 @@ export function fatoracao(numero) {
     return arrayFinal;
 }
 
-// pt1
-// console.log(fatoracao(175557))
-// console.log(fatoracao(455621))
-// console.log(fatoracao(731021))
-// console.log(fatoracao(10))
-// console.log(fatoracao(11))
-// console.log(fatoracao(100))
-
 export function fatoracaoFermat(numero) {
     let x, y, numeroEhPrimo;
     x = Math.floor(Math.sqrt(numero));
@@ -66,11 +58,3 @@ export function fatoracaoFermat(numero) {
         x + y
     ];
 }
-
-// console.log(fatoracaoFermat(175557))
-// console.log(fatoracaoFermat(455621))
-// console.log(fatoracaoFermat(731021))
-// console.log(fatoracaoFermat(625))
-// console.log(fatoracaoFermat(1024))
-// console.log(fatoracaoFermat(101))
-// console.log(fatoracaoFermat(4294967295))

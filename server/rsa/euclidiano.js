@@ -35,21 +35,4 @@ function euclidianoEstendido(a, b) {
     }
 }
 
-// testes
-/*console.log("42 e 42:")
-console.log(euclidianoEstendido(42, 42))
-console.log("\n14 e 35:")
-console.log(euclidianoEstendido(14, 35))
-console.log("\n252 e 180:")
-console.log(euclidianoEstendido(252, 180))
-console.log("\n6643 e 2873:")
-console.log(euclidianoEstendido(6643, 2873))
-console.log("\n272828282 e 3242:")
-console.log(euclidianoEstendido(272828282, 3242))
-console.log("\n35 e 14:")
-console.log(euclidianoEstendido(35, 14))
-console.log("\n42 e 7:")
-console.log(euclidianoEstendido(42, 7))
-console.log("\n7 e 42:")
-console.log(euclidianoEstendido(7, 42))*/
 export default euclidianoEstendido;

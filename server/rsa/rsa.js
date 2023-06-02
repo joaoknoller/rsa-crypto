@@ -70,14 +70,7 @@ function codificarBloco(bloco, n) {
     return blocoModulado > 0 ? blocoModulado : blocoModulado + n;
 }
 
-export function codificarTexto(texto, n) {
-    const textoCifrado = textoParaCodigo(texto);
-    const textoEmBlocos = quebrarMensagemEmBlocos(textoCifrado, n);
-
-    return textoEmBlocos.map(b => codificarBloco(b, n));
-}
-
-export function decodificarBlocos(blocos, n) {
+function decodificarBlocos(blocos, n) {
     const e = calcularE(n);
     const fi = calcularFi(n);
     const inversoE = inversoModular(e, fi);
@@ -88,40 +81,30 @@ export function decodificarBlocos(blocos, n) {
     });
 }
 
-export function blocosDecodificadosParaTexto(blocos) {
-    const palavra = blocos.join('');
+function cifrar(texto, n) {
+    const textoCifrado = textoParaCodigo(texto);
+    const textoEmBlocos = quebrarMensagemEmBlocos(textoCifrado, n);
+
+    return new Promise((resolve, reject) => {
+        resolve(textoEmBlocos.map(b => codificarBloco(b, n)));
+    });
+}
+
+function decifrar(blocos, n) {
+    const blocosDecodificados = decodificarBlocos(blocos, n);
+    const palavra = blocosDecodificados.join('');
     const texto = [];
 
     for (let i = 0; i < palavra.length; i = i + 3) {
         texto.push(`${palavra[i]}${palavra[i + 1]}${palavra[i + 2]}`);
     }
 
-    return texto.map(t => codigoParaCaractere(t)).join('');
+    return new Promise((resolve, reject) => {
+        resolve(texto.map(t => codigoParaCaractere(t)).join(''));
+    });
 }
 
-// const codificado = codificarTexto('CEFET/RJ - NF', 187)
-// const decodificado = decodificarBlocos(codificado, 187);
-
-// console.log(`
-// Texto: CEFET/RJ - NF
-// Texto em dígitos: ${decodificado.join('')}
-// Blocos decodificados: ${decodificado}
-// Blocos codificados: ${codificado}
-// Texto decodificado: ${blocosDecodificadosParaTexto(decodificado)}
-// `);
-
-// [
-//     {texto: 'CARRO', n: 143},
-//     {texto: 'CARRO', n: 187},
-//     {texto: 'AZUL', n: 143},
-//     {texto: 'AZUL', n: 187},
-// ].forEach(({texto, n}) => console.log(`\n${texto} - ${n} => ${codificarTexto(texto, n)}`));
-
-/*console.log('AZUL 187: \n');
-console.log(quebrarMensagemEmBlocos(textoParaCodigo('AZUL'), 187));
-console.log('\n');
-console.log('CARRO 143: \n');
-console.log(quebrarMensagemEmBlocos(textoParaCodigo('CARRO'), 143));
-console.log('\n');
-console.log('AZUL 143: \n');
-console.log(quebrarMensagemEmBlocos(textoParaCodigo('AZUL'), 143));*/
+export {
+    cifrar,
+    decifrar
+}

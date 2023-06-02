@@ -34,9 +34,6 @@ export function potenciacaoModular(base, expoente, modulo) {
     for (let index = 1; index < expoente; index++) {
         const atual = congruenciaModular(resultados[0] * anterior, modulo);
         if (atual === 0) return 0;
-        // if (atual === 1) {
-
-        // }
 
         resultados.push(atual);
         anterior = atual;
@@ -55,18 +52,5 @@ function inversoModular(numero, modulo) {
         return 0;
     }
 }
-
-/*[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].forEach(i => console.log(`base: 10 - mod: 7 - i: ${i} = ${potenciacaoModular(10, i, 7)}`));
-console.log('\n\n');
-[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].forEach(i => console.log(`base: 2 - mod: 6 - i: ${i} = ${potenciacaoModular(2, i, 6)}`));
-console.log('\n\n');
-[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].forEach(i => console.log(`base: 2 - mod: 8 - i: ${i} = ${potenciacaoModular(2, i, 8)}`));*/
-
-
-/*[1, 2, 3, 4].forEach(i => console.log(`modulo: 4 - numero: ${i} - inverso: ${inversoModular(i, 4)}`));
-console.log('\n\n');
-[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].forEach(i => console.log(`modulo: 11 - numero: ${i} - inverso: ${inversoModular(i, 11)}`));
-console.log('\n\n');
-[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].forEach(i => console.log(`modulo: 15 - numero: ${i} - inverso: ${inversoModular(i, 15)}`));*/
 
 export default inversoModular;

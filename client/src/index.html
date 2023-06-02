@@ -13,15 +13,17 @@
 <body>
     <div class="container-fluid">
         <div class="wrap row row-cols-sm-1 row-cols-lg-2 align-items-start p-3">
-            <form method="POST" class="col">
+            <form id="form" method="POST" class="col">
                 <div class="card text-center">
                     <div class="card-header">
                         <div class="mb-3">
-                            <label for="formFile" class="form-label">Anexe aqui o arquivo de texto</label>
-                            <input class="form-control" type="file" id="formFile">
+                            <label for="arquivo" class="form-label">Anexe aqui o arquivo de texto</label>
+                            <input class="form-control" type="file" id="arquivo">
                         </div>
                     </div>
                 </div>
+                <button id="criptografar" disabled type="button" class="btn btn-primary mt-2">Criptografar</button>
+                <button id="descriptografar" disabled type="button" class="btn btn-success mt-2">Descriptografar</button>
             </form>
             <div class="col">
                 <div class="card text-left">
