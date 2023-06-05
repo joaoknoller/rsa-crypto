@@ -20,10 +20,41 @@
                             <label for="arquivo" class="form-label">Anexe aqui o arquivo de texto</label>
                             <input class="form-control" type="file" id="arquivo">
                         </div>
+                        <div class="row g-2">
+                            <div class="col-md">
+                                <div class="form-floating">
+                                    <input
+                                        type="number"
+                                        class="form-control"
+                                        id="tamanho-alfabeto"
+                                        placeholder="Tamanho do alfabeto"
+                                        data-bs-toggle="tooltip"
+                                        data-bs-placement="right"
+                                        data-bs-title="O tamanho do alfabeto representa a quantidade de caracteres utilizados na criprografia. Mínimo recomendado: 3"
+                                    >
+                                    <label for="tamanho-alfabeto">Tamanho do alfabeto</label>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-floating">
+                                    <input
+                                        type="number"
+                                        class="form-control"
+                                        id="valor-n"
+                                        placeholder="N"
+                                        data-bs-toggle="tooltip"
+                                        data-bs-placement="right"
+                                        data-bs-title="Recomenda-se utilizar um N com pelo menos um algarismo a mais que o tamanho do alfabeto"
+                                    >
+                                    <label for="valor-n">Valor do N</label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <button id="criptografar" disabled type="button" class="btn btn-primary mt-2">Criptografar</button>
-                <button id="descriptografar" disabled type="button" class="btn btn-success mt-2">Descriptografar</button>
+                <button id="descriptografar" disabled type="button"
+                    class="btn btn-success mt-2">Descriptografar</button>
             </form>
             <div class="col">
                 <div class="card text-left">
