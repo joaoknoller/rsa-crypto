@@ -46,6 +46,9 @@ app.post("/criptografar", upload.single("arquivo"), (req, res) => {
       );
       res.status(200).send(cifrado);
     });
+    reader.on("close", () => {
+      fs.unlinkSync(`./${path}`);
+    });
   } catch (error) {
     console.log(error);
     res.status(400).send("Error");
@@ -70,6 +73,10 @@ app.post("/descriptografar", upload.single("arquivo"), (req, res) => {
         tamanhoAlfabeto
       );
       res.status(200).send(decifrado);
+    });
+
+    reader.on("close", () => {
+      fs.unlinkSync(`./${path}`);
     });
   } catch (error) {
     console.log(error);
