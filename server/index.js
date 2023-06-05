@@ -42,7 +42,7 @@ app.post("/criptografar", upload.single("arquivo"), (req, res) => {
       const cifrado = await cifrar(
         data,
         +valorDoN || +process.env.N,
-        tamanhoAlfabeto
+        +tamanhoAlfabeto || 3
       );
       res.status(200).send(cifrado);
     });
@@ -70,7 +70,7 @@ app.post("/descriptografar", upload.single("arquivo"), (req, res) => {
       const decifrado = await decifrar(
         data,
         +valorDoN || +process.env.N,
-        tamanhoAlfabeto
+        +tamanhoAlfabeto || 3
       );
       res.status(200).send(decifrado);
     });
