@@ -17,37 +17,32 @@ function textoParaCodigo(texto, tamanhoAlfabeto) {
 }
 
 function quebrarMensagemEmBlocos(mensagem, n) {
-  const bloco = [];
-  const mensagemCodigo = mensagem.split("");
-  let blocoAtual = "";
-  let perigo = false;
-
-  mensagemCodigo.forEach((val, index) => {
-    if (+val === 0 && perigo === true) {
-      perigo = false;
-      return (blocoAtual = "");
-    }
-
-    blocoAtual = blocoAtual + val;
-
-    if (+(blocoAtual + mensagemCodigo[index + 1]) > n) {
-      if (+mensagemCodigo[index + 1] === 0) {
-        const anterior = +`${+blocoAtual % 10}0`;
-        blocoAtual = Math.trunc(blocoAtual / 10);
-        perigo = true;
-        return bloco.push(+blocoAtual, anterior);
+  let blocos = [];
+  let menor = "";
+  let maior = "";
+  
+  for (let i = 0; i < mensagem.length; i++) {
+      maior += mensagem[i];
+      
+      if (+maior > n) {
+          blocos.push(+menor);
+          menor = "";
+          maior = "";
+          i--;
+      } else {
+          if (mensagem[i + 2] == '0' && mensagem[i + 1] != '0') {
+              blocos.push(+maior);
+              menor = "";
+              maior = "";
+          } else {
+              if (i == mensagem.length - 1)
+                  blocos.push(+maior);
+              menor += mensagem[i];
+          }
       }
-
-      bloco.push(+blocoAtual);
-      return (blocoAtual = "");
-    }
-
-    if (index + 1 === mensagemCodigo.length) {
-      return bloco.push(+blocoAtual);
-    }
-  });
-
-  return bloco;
+  }
+  
+  return blocos;
 }
 
 function calcularFi(n) {
