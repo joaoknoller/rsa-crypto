@@ -93,8 +93,14 @@ function decifrar(blocos, n, tamanhoAlfabeto) {
   const palavra = blocosDecodificados.join("");
   const texto = [];
 
-  for (let i = 0; i < palavra.length; i = i + 3) {
-    texto.push(`${palavra[i]}${palavra[i + 1]}${palavra[i + 2]}`);
+  for (let i = 0; i < palavra.length; i = i + tamanhoAlfabeto) {
+    let letra = '';
+    for (let j = 0; j < tamanhoAlfabeto; j++) {
+      const caractere = palavra[i + j];
+      if (caractere !== undefined && Number.isInteger(+caractere))
+        letra += `${palavra[i + j]}`;
+    }
+    texto.push(letra);
   }
 
   return new Promise((resolve, reject) => {
