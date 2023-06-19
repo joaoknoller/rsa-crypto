@@ -41,7 +41,7 @@ app.post("/criptografar", upload.single("arquivo"), (req, res) => {
       const data = chunk.toString();
       const cifrado = await cifrar(
         data,
-        +valorDoN || +process.env.N,
+        +valorDoN || 1887,
         +tamanhoAlfabeto || 3
       );
       res.status(200).send(cifrado);
