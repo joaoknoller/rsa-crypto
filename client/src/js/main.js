@@ -19,6 +19,20 @@ function download(text, name = 'test.txt', type = 'text/plain') {
     a.click();
 }
 
+function createChunks(file, cSize = 1024 * 8) {
+    let startPointer = 0;
+    let endPointer = file.size;
+    let chunks = [];
+
+    while (startPointer < endPointer) {
+        let newStartPointer = startPointer + cSize;
+        chunks.push(file.slice(startPointer, newStartPointer));
+        startPointer = newStartPointer;
+    }
+
+    return chunks;
+}
+
 function prepareName(name) {
     return name.replace(/(.txt)|(-criptografado|-descriptografado)/g, '');
 }
@@ -47,13 +61,32 @@ criptButton.addEventListener('click', async e => {
     if (tamanho) data.append('tamanhoAlfabeto', tamanho);
     if (n) data.append('valorDoN', n);
 
-    const response = await fetch(`${URL_BASE}/criptografar`, {
-        method: "POST",
-        body: data,
-    });
+    if (arquivo.size > 1024 * 9 /* 9KB */) {
+        const chunks = createChunks(arquivo);
 
-    const result = await response.text();
-    download(result, `${prepareName(arquivo.name)}-criptografado.txt`);
+        const all = chunks.map(async chunk => {
+            data.set('arquivo', chunk);
+
+            return fetch(`${URL_BASE}/criptografar`, {
+                method: "POST",
+                body: data,
+            }).then(r => r.text());
+        });
+
+        const responses = await Promise.all(all);
+        
+        const final = responses.reduce((prev, curr) => [...prev, ...eval(curr)], []);
+        
+        download(final, `${prepareName(arquivo.name)}-criptografado.txt`);
+    } else {
+        const response = await fetch(`${URL_BASE}/criptografar`, {
+            method: "POST",
+            body: data,
+        });
+
+        const result = await response.text();
+        download(result, `${prepareName(arquivo.name)}-criptografado.txt`);
+    }
 });
 
 descriptButton.addEventListener('click', async e => {
@@ -68,13 +101,33 @@ descriptButton.addEventListener('click', async e => {
     if (tamanho) data.append('tamanhoAlfabeto', tamanho);
     if (n) data.append('valorDoN', n);
 
-    const response = await fetch(`${URL_BASE}/descriptografar`, {
-        method: "POST",
-        body: data,
-    });
+    if (arquivo.size > 1024 * 9 /* 9KB */) {
+        const chunks = createChunks(arquivo);
 
-    const result = await response.text();
-    download(result, `${prepareName(arquivo.name)}-descriptografado.txt`);
+        const all = chunks.map(async chunk => {
+            data.set('arquivo', chunk);
+
+            return fetch(`${URL_BASE}/descriptografar`, {
+                method: "POST",
+                body: data,
+            }).then(r => r.text());
+        });
+
+        const responses = await Promise.all(all);
+        console.log(responses);
+        
+        const final = responses.reduce((prev, curr) => prev.concat(curr), '');
+        
+        download(final, `${prepareName(arquivo.name)}-descriptografado.txt`);
+    } else {
+        const response = await fetch(`${URL_BASE}/descriptografar`, {
+            method: "POST",
+            body: data,
+        });
+    
+        const result = await response.text();
+        download(result, `${prepareName(arquivo.name)}-descriptografado.txt`);
+    }
 });
 
 form.addEventListener('submit', e => {
